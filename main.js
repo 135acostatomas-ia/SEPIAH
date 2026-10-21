@@ -1,66 +1,29 @@
 /* ============================================
-   VATOS STUDIO — main.js
-   ============================================
-   Índice:
-   1. Configuración
-   2. Productos
-   3. Carrito
-   4. Render Productos
-   5. Filtro Categorías
-   6. WhatsApp
-   7. Toast
-   8. Cursor
-   9. Init
+   VATOS — Fragancias · main.js
 ============================================ */
 
-
-/* ── 1. CONFIGURACIÓN ─────────────────────── */
-
-// ← REEMPLAZÁ con tu número de WhatsApp
-// Formato: código de país + código de área + número
-// Ejemplo Argentina: 549 + 11 + 12345678 = "5491112345678"
 const WPP_NUMBER = "5491164562757";
 
-
-/* ── 2. PRODUCTOS ─────────────────────────── */
-
-// Para agregar un producto nuevo, copiá uno de estos objetos
-// y completá los datos. El "id" debe ser único.
-// Para agregar una imagen real, reemplazá "emoji" por
-// "img": "img/productos/nombre-archivo.jpg"
+/* ── PRODUCTOS ──────────────────────────── */
 
 const PRODUCTS = [
-  // BARBER — SIR FAUSTO (en stock)
-{ id: 1,  name: "Shampoo para Barba 100ml",   cat: "barber", brand: "sirfausto", price: 9500, img: "img/productos/Fragancias/sirfausto/shampoobarba.png",     tag: null },
-{ id: 2,  name: "Shampoo para Cabello 100ml", cat: "barber", brand: "sirfausto", price: 11500, img: "img/productos/Fragancias/sirfausto/shampocabello.png",    tag: null },
-{ id: 3,  name: "Old Wax Suave 50ml",         cat: "barber", brand: "sirfausto", price: 15000, img: "img/productos/Fragancias/sirfausto/oldwaxsuave.png",      tag: null },
-{ id: 4,  name: "Old Wax Fuerte 50ml",        cat: "barber", brand: "sirfausto", price: 15000, img: "img/productos/Fragancias/sirfausto/oldwaxfuerte.png",     tag: null },
-{ id: 5,  name: "Forming Paste 50ml",         cat: "barber", brand: "sirfausto", price: 16000, img: "img/productos/Fragancias/sirfausto/formingpaste.png",     tag: null },
-{ id: 6,  name: "Pomada Brillante 50ml",      cat: "barber", brand: "sirfausto", price: 15500, img: "img/productos/Fragancias/sirfausto/pomadabrillante.png",  tag: null },
-{ id: 7,  name: "Pomada Opaca 50ml",          cat: "barber", brand: "sirfausto", price: 17000, img: "img/productos/Fragancias/sirfausto/pomadaopaca.png",      tag: null },
-{ id: 8,  name: "Óleo Esencial Barba 30ml",   cat: "barber", brand: "sirfausto", price: 17000, img: "img/productos/Fragancias/sirfausto/oleoesencialbarba.png", tag: null },
-{ id: 9,  name: "Hybrid Clay Pure 50ml",      cat: "barber", brand: "sirfausto", price: 14000, img: "img/productos/Fragancias/sirfausto/hybridclay.png",       tag: null },
-  // FRAGANCIAS
-{ id: 20, name: "Lattafa Khamrah",                 cat: "fragancia", price: 16000, img: "img/productos/Fragancias/LattafaKhamrah.png",       tag: null },
-{ id: 21, name: "Lattafa Asad",                    cat: "fragancia", price: 16000, img: "img/productos/Fragancias/LattafaAsad.png",          tag: null },
-{ id: 22, name: "Afnan 9PM Negro",                 cat: "fragancia", price: 16000, img: "img/productos/Fragancias/afnan9pm.png",        tag: null },
-{ id: 23, name: "Armaf Club de Nuit Intense Man",  cat: "fragancia", price: 16000, img: "img/productos/Fragancias/armafclub.png", tag: null },
-{ id: 24, name: "Afnan 9PM Night Out",             cat: "fragancia", price: 16000, img: "img/productos/Fragancias/AFNAN-9PM-NIGHT-OUT.png",  tag: null },
-{ id: 25, name: "Lattafa Badee Al Oud",            cat: "fragancia", price: 16000, img: "img/productos/Fragancias/LATTAFA-BADEE-AL-OUD.png", tag: null },
-{ id: 26, name: "Lattafa The Kingdom",             cat: "fragancia", price: 16000, img: "img/productos/Fragancias/LATTAFA-THE-KINGDOMG.png", tag: null },
+  { id: 20, name: "Lattafa Khamrah",                cat: "fragancia", price: 16000, img: "img/productos/Fragancias/LattafaKhamrah.png",       tag: null },
+  { id: 21, name: "Lattafa Asad",                   cat: "fragancia", price: 16000, img: "img/productos/Fragancias/LattafaAsad.png",          tag: null },
+  { id: 22, name: "Afnan 9PM Negro",                cat: "fragancia", price: 16000, img: "img/productos/Fragancias/afnan9pm.png",             tag: null },
+  { id: 23, name: "Armaf Club de Nuit Intense Man", cat: "fragancia", price: 16000, img: "img/productos/Fragancias/armafclub.png",            tag: null },
+  { id: 24, name: "Afnan 9PM Night Out",            cat: "fragancia", price: 16000, img: "img/productos/Fragancias/AFNAN-9PM-NIGHT-OUT.png",  tag: null },
+  { id: 25, name: "Lattafa Badee Al Oud",           cat: "fragancia", price: 16000, img: "img/productos/Fragancias/LATTAFA-BADEE-AL-OUD.png", tag: null },
+  { id: 26, name: "Lattafa The Kingdom",            cat: "fragancia", price: 16000, img: "img/productos/Fragancias/LATTAFA-THE-KINGDOMG.png", tag: null },
 ];
 
-/* ── 3. CARRITO ───────────────────────────── */
+/* ── CARRITO ────────────────────────────── */
 
 let cart = [];
-let activeFilter = 'all';
 
 function addToCart(id) {
   const product = PRODUCTS.find(p => p.id === id);
   if (!product) return;
-
   const exists = cart.find(i => i.id === id);
-
   if (exists) {
     exists.qty += 1;
     showToast(`${product.name} — Cantidad: ${exists.qty}`);
@@ -68,9 +31,8 @@ function addToCart(id) {
     cart.push({ ...product, qty: 1 });
     showToast(`${product.name} — Agregado ✓`);
   }
-
   updateCartUI();
-  renderProducts(activeFilter);
+  renderProducts();
 }
 
 function increaseQty(id) {
@@ -78,22 +40,20 @@ function increaseQty(id) {
   if (!item) return;
   item.qty += 1;
   updateCartUI();
-  renderProducts(activeFilter);
+  renderProducts();
 }
 
 function decreaseQty(id) {
   const item = cart.find(i => i.id === id);
   if (!item) return;
-
   if (item.qty > 1) {
     item.qty -= 1;
   } else {
     cart = cart.filter(i => i.id !== id);
     showToast(`${item.name} — Eliminado`);
   }
-
   updateCartUI();
-  renderProducts(activeFilter);
+  renderProducts();
 }
 
 function removeFromCart(id) {
@@ -102,16 +62,15 @@ function removeFromCart(id) {
   cart = cart.filter(i => i.id !== id);
   showToast(`${item.name} — Eliminado`);
   updateCartUI();
-  renderProducts(activeFilter);
+  renderProducts();
 }
 
 function updateCartUI() {
-  const countEl  = document.getElementById('cartCount');
-  const itemsEl  = document.getElementById('cartItems');
-  const totalEl  = document.getElementById('cartTotal');
+  const countEl   = document.getElementById('cartCount');
+  const itemsEl   = document.getElementById('cartItems');
+  const totalEl   = document.getElementById('cartTotal');
   const bnCountEl = document.getElementById('bnCount');
 
-  // Suma total de unidades
   const totalQty = cart.reduce((acc, i) => acc + i.qty, 0);
   countEl.textContent = totalQty;
   if (bnCountEl) bnCountEl.textContent = totalQty;
@@ -123,7 +82,7 @@ function updateCartUI() {
     itemsEl.innerHTML = `
       <div class="cart-empty">
         CARRITO VACÍO<br><br>
-        <span>// AGREGÁ PRODUCTOS</span>
+        <span>// AGREGÁ FRAGANCIAS</span>
       </div>`;
     return;
   }
@@ -155,24 +114,20 @@ function closeCart() {
   document.getElementById('overlay').classList.remove('active');
 }
 
+/* ── RENDER PRODUCTOS ───────────────────── */
 
-/* ── 4. RENDER PRODUCTOS ──────────────────── */
-
-function renderProducts(filter = 'all') {
+function renderProducts() {
   const grid = document.getElementById('productsGrid');
-  const filtered = filter === 'all'
-    ? PRODUCTS
-    : PRODUCTS.filter(p => p.cat === filter);
 
-  grid.innerHTML = filtered.map(p => {
+  grid.innerHTML = PRODUCTS.map(p => {
     const inCart  = cart.find(i => i.id === p.id);
     const tagHTML = p.tag
       ? `<div class="product-tag tag-${p.tag}">${p.tag === 'new' ? 'Nuevo' : 'Hot'}</div>`
       : '';
 
     const mediaHTML = p.img
-   ? `<img class="product-img" src="${p.img}" alt="${p.name}">`
-   : `<div class="product-placeholder">${p.emoji}</div>`;
+      ? `<img class="product-img" src="${p.img}" alt="${p.name}">`
+      : `<div class="product-placeholder">✦</div>`;
 
     const buttonHTML = inCart
       ? `
@@ -189,7 +144,7 @@ function renderProducts(filter = 'all') {
       `;
 
     return `
-    <div class="product-card" data-id="${p.id}" ${p.img ? `onclick="openLightbox('${p.img}', '${p.name}')"` : ''}>
+      <div class="product-card" data-id="${p.id}" ${p.img ? `onclick="openLightbox('${p.img}', '${p.name}')"` : ''}>
         <div class="product-img-wrap">
           ${mediaHTML}
           ${tagHTML}
@@ -198,7 +153,6 @@ function renderProducts(filter = 'all') {
           </div>
         </div>
         <div class="product-info">
-          <div class="product-cat">${p.cat}</div>
           <div class="product-name">${p.name}</div>
           <div class="product-price">$${p.price.toLocaleString('es-AR')}</div>
         </div>
@@ -207,183 +161,11 @@ function renderProducts(filter = 'all') {
   }).join('');
 }
 
-/* ── 5. FILTRO CATEGORÍAS ─────────────────── */
-
-let activeBrand = null;
-
-function filterProducts(cat, btn) {
-  activeFilter = cat;
-  activeBrand = null;
-
-  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-
-  const subTabs = document.getElementById('subTabsBarber');
-  const banner = document.getElementById('brandBanner');
-
-  if (cat === 'barber') {
-    subTabs.classList.add('active');
-    document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
-    banner.classList.remove('active');
-    banner.innerHTML = '';
-    stopCarousel();
-    const bannerTec = document.getElementById('brandBannerTec');
-    const wppBar = document.getElementById('tecWppBar');
-    if (bannerTec) { bannerTec.classList.remove('active'); bannerTec.innerHTML = ''; }
-    if (wppBar) wppBar.classList.remove('active');
-    document.getElementById('productsGrid').innerHTML = `
-      <div class="empty-state">
-        <div class="empty-state-title">Elegí una marca</div>
-        <div class="empty-state-text">// Tocá Sir Fausto para ver los productos</div>
-      </div>`;
-
-  } else if (cat === 'fragancia') {
-    subTabs.classList.remove('active');
-    banner.classList.add('active');
-    banner.innerHTML = `
-      <div class="carousel">
-        <div class="carousel-track" id="carouselTrack">
-          <picture>
-            <source media="(max-width: 768px)" srcset="img/brand/banners/banner1app.png">
-            <img src="img/brand/banners/banner1web.png" alt="Vato Essence">
-          </picture>
-          <picture>
-            <source media="(max-width: 768px)" srcset="img/brand/banners/banner2app.png">
-            <img src="img/brand/banners/banner2web.png" alt="Atomizadores 8ml">
-          </picture>
-        </div>
-        <div class="carousel-dots" id="carouselDots">
-          <span class="dot active" onclick="goToSlide(0)"></span>
-          <span class="dot" onclick="goToSlide(1)"></span>
-        </div>
-      </div>`;
-    const bannerTec = document.getElementById('brandBannerTec');
-    const wppBar = document.getElementById('tecWppBar');
-    if (bannerTec) { bannerTec.classList.remove('active'); bannerTec.innerHTML = ''; }
-    if (wppBar) wppBar.classList.remove('active');
-    setTimeout(() => startCarousel(), 50);
-    renderProducts(cat);
-
-  } else if (cat === 'tecnologia') {
-    subTabs.classList.remove('active');
-    banner.classList.remove('active');
-    banner.innerHTML = '';
-    stopCarousel();
-    const bannerTec = document.getElementById('brandBannerTec');
-    const wppBar = document.getElementById('tecWppBar');
-    bannerTec.classList.add('active');
-    bannerTec.innerHTML = `
-  <div class="carousel">
-    <div class="carousel-track" id="carouselTrack">
-      <picture>
-        <source media="(max-width: 768px)" srcset="img/brand/banners/tecbanner1app.png">
-        <img src="img/brand/banners/tecbanner1web.png" alt="Tecnología Vatos — slide 1">
-      </picture>
-      <picture>
-        <source media="(max-width: 768px)" srcset="img/brand/banners/tecbanner2app.png">
-        <img src="img/brand/banners/tecbanner2web.png" alt="Tecnología Vatos — slide 2">
-      </picture>
-    </div>
-    <div class="carousel-dots" id="carouselDots">
-      <span class="dot active" onclick="goToSlide(0)"></span>
-      <span class="dot" onclick="goToSlide(1)"></span>
-    </div>
-  </div>`;
-    setTimeout(() => startCarousel(), 50);
-    if (wppBar) wppBar.classList.add('active');
-    renderProducts(cat);
-
-  } else {
-    subTabs.classList.remove('active');
-    banner.classList.remove('active');
-    const bannerTec = document.getElementById('brandBannerTec');
-    const wppBar = document.getElementById('tecWppBar');
-    if (bannerTec) bannerTec.classList.remove('active');
-    if (wppBar) wppBar.classList.remove('active');
-    stopCarousel();
-    renderProducts(cat);
-  }
-}
-
-function filterBrand(brand, btn) {
-  activeBrand = brand;
-  
-  // Marcar sub-tab activa
-  document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-  
-  // Mostrar banner de la marca
-  const banner = document.getElementById('brandBanner');
-  banner.classList.add('active');
-  
-  if (brand === 'sirfausto') {
-  banner.innerHTML = `
-    <div class="sf-banner-static">
-      <picture>
-        <source media="(max-width: 768px)" srcset="img/brand/banners/bannersirfaustoapp.png">
-        <img src="img/brand/banners/bannersirfaustoweb.png" alt="Sir Fausto">
-      </picture>
-    </div>
-  `;
-}
-  
-  // Filtrar productos por marca
-  const filtered = PRODUCTS.filter(p => p.cat === 'barber' && p.brand === brand);
-  
-  if (filtered.length === 0) {
-    document.getElementById('productsGrid').innerHTML = `
-      <div class="empty-state">
-        <div class="empty-state-title">Próximamente</div>
-        <div class="empty-state-text">// Productos en camino</div>
-      </div>`;
-    return;
-  }
-  
-  renderProductsList(filtered);
-}
-
-function renderProductsList(products) {
-  const grid = document.getElementById('productsGrid');
-  grid.innerHTML = products.map(p => {
-    const inCart  = cart.find(i => i.id === p.id);
-    const tagHTML = p.tag
-      ? `<div class="product-tag tag-${p.tag}">${p.tag === 'new' ? 'Nuevo' : 'Hot'}</div>`
-      : '';
-    const mediaHTML = p.img
-  ? `<img class="product-img" src="${p.img}" alt="${p.name}">`
-  : `<div class="product-placeholder">${p.emoji}</div>`;
-    const buttonHTML = inCart
-      ? `
-        <div class="card-qty-controls">
-          <button class="qty-btn" onclick="event.stopPropagation(); decreaseQty(${p.id})">−</button>
-          <span class="qty-num">${inCart.qty}</span>
-          <button class="qty-btn" onclick="event.stopPropagation(); increaseQty(${p.id})">+</button>
-        </div>`
-      : `<button class="add-btn" onclick="event.stopPropagation(); addToCart(${p.id})">+ Agregar</button>`;
-    
-    return `
-     <div class="product-card" data-id="${p.id}" ${p.img ? `onclick="openLightbox('${p.img}', '${p.name}')"` : ''}>
-        <div class="product-img-wrap">
-          ${mediaHTML}
-          ${tagHTML}
-          <div class="card-overlay">${buttonHTML}</div>
-        </div>
-        <div class="product-info">
-          <div class="product-cat">${p.cat}</div>
-          <div class="product-name">${p.name}</div>
-          <div class="product-price">$${p.price.toLocaleString('es-AR')}</div>
-        </div>
-      </div>
-    `;
-  }).join('');
-}
-
-
-/* ── 6. WHATSAPP ──────────────────────────── */
+/* ── WHATSAPP ───────────────────────────── */
 
 function sendToWhatsApp() {
   if (cart.length === 0) {
-    showToast('Agregá productos primero 😅');
+    showToast('Agregá fragancias primero 🌿');
     return;
   }
 
@@ -393,7 +175,7 @@ function sendToWhatsApp() {
   const total = cart.reduce((acc, i) => acc + i.price * i.qty, 0);
 
   const msg = [
-    `📝 *Pedido desde Vatos Studio*`,
+    `✦ *Pedido desde Vatos Fragancias*`,
     ``,
     ...lines,
     ``,
@@ -406,8 +188,7 @@ function sendToWhatsApp() {
   window.open(url, '_blank');
 }
 
-
-/* ── 7. TOAST ─────────────────────────────── */
+/* ── TOAST ──────────────────────────────── */
 
 function showToast(msg) {
   const t = document.getElementById('toast');
@@ -416,11 +197,10 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2500);
 }
 
+/* ── CURSOR ─────────────────────────────── */
 
-/* ── 8. CURSOR ────────────────────────────── */
-
-const cursorEl  = document.getElementById('cursor');
-const ringEl    = document.getElementById('cursorRing');
+const cursorEl = document.getElementById('cursor');
+const ringEl   = document.getElementById('cursorRing');
 let mx = 0, my = 0, rx = 0, ry = 0;
 
 document.addEventListener('mousemove', e => {
@@ -450,41 +230,8 @@ document.querySelectorAll('button, a, .product-card').forEach(el => {
   });
 });
 
+/* ── CARRUSEL ───────────────────────────── */
 
-/* ── 9. INIT ──────────────────────────────── */
-
-// Al cargar, mostrar mensaje "Elegí categoría"
-document.getElementById('productsGrid').innerHTML = `
-  <div class="empty-state">
-    <div class="empty-state-title">Elegí una categoría</div>
-    <div class="empty-state-text">// Tocá Barber, Fragancia o Accesorios</div>
-  </div>`;
-
-const BARBEROS = {
-  luca:    { name: "Luca",    wpp: "5491156431982" },
-  leandro: { name: "Leandro", wpp: "5491126556031" }
-};
-
-function openBarberModal() {
-  document.getElementById('barberModal').classList.add('open');
-  document.getElementById('barberOverlay').classList.add('active');
-}
-
-function closeBarberModal() {
-  document.getElementById('barberModal').classList.remove('open');
-  document.getElementById('barberOverlay').classList.remove('active');
-}
-
-function bookBarber(barberoId) {
-  const b = BARBEROS[barberoId];
-  if (!b) return;
-  const msg = `Hola ${b.name}! Quiero coordinar un turno en Vatos Studio 💈`;
-  const url = `https://wa.me/${b.wpp}?text=${encodeURIComponent(msg)}`;
-  window.open(url, '_blank');
-  closeBarberModal();
-}
-
-/* ── CARRUSEL ─────────────────────────── */
 let carouselIndex = 0;
 let carouselInterval = null;
 
@@ -512,38 +259,36 @@ function goToSlide(index) {
 
 function updateCarousel() {
   const track = document.getElementById('carouselTrack');
-  const dots = document.querySelectorAll('.dot');
+  const dots  = document.querySelectorAll('.dot');
   if (!track) return;
   track.style.transform = `translateX(-${carouselIndex * 100}%)`;
   dots.forEach((d, i) => d.classList.toggle('active', i === carouselIndex));
 }
 
-/* ── TOUCH SWIPE CARRUSEL ─────────────────── */
+/* ── TOUCH SWIPE ────────────────────────── */
+
 let touchStartX = 0;
-let touchEndX = 0;
+let touchEndX   = 0;
 
 document.addEventListener('touchstart', e => {
-  const track = document.getElementById('carouselTrack');
-  if (!track) return;
+  if (!document.getElementById('carouselTrack')) return;
   touchStartX = e.changedTouches[0].screenX;
 });
 
 document.addEventListener('touchend', e => {
-  const track = document.getElementById('carouselTrack');
-  if (!track) return;
+  if (!document.getElementById('carouselTrack')) return;
   touchEndX = e.changedTouches[0].screenX;
   const diff = touchStartX - touchEndX;
   if (Math.abs(diff) > 50) {
-    if (diff > 0) {
-      carouselIndex = Math.min(carouselIndex + 1, 1);
-    } else {
-      carouselIndex = Math.max(carouselIndex - 1, 0);
-    }
+    carouselIndex = diff > 0
+      ? Math.min(carouselIndex + 1, 1)
+      : Math.max(carouselIndex - 1, 0);
     updateCarousel();
   }
 });
 
-/* ── LIGHTBOX ─────────────────────────── */
+/* ── LIGHTBOX ───────────────────────────── */
+
 function openLightbox(src, alt) {
   const lb = document.createElement('div');
   lb.className = 'lightbox';
@@ -564,8 +309,7 @@ function closeLightbox() {
   setTimeout(() => lb.remove(), 300);
 }
 
-function consultarTecnologia() {
-  const msg = `Hola! Quiero consultar sobre productos de tecnología 🎧`;
-  const url = `https://wa.me/${WPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-  window.open(url, '_blank');
-  }
+/* ── INIT ───────────────────────────────── */
+
+renderProducts();
+startCarousel();

@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VATOS STUDIO</title>
+  <title>VATOS — Fragancias</title>
   <link rel="icon" type="image/png" href="img/brand/logosinfondo.png">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Barlow+Condensed:wght@300;400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -25,7 +25,7 @@
     <div class="cart-items" id="cartItems">
       <div class="cart-empty">
         CARRITO VACÍO<br><br>
-        <span>// AGREGÁ PRODUCTOS</span>
+        <span>// AGREGÁ FRAGANCIAS</span>
       </div>
     </div>
     <div class="cart-footer">
@@ -45,13 +45,11 @@
   <!-- NAVBAR -->
   <nav>
     <a href="#hero" class="logo">
-      <img src="img/brand/logosinfondo.png" alt="Vatos Studio" class="logo-img">
+      <img src="img/brand/logosinfondo.png" alt="Vatos" class="logo-img">
     </a>
     <ul class="nav-links">
-      <li><a href="#local">La Casa</a></li>
-      <li><a href="#categoria-bar">Catálogo</a></li>
+      <li><a href="#catalogo">Catálogo</a></li>
     </ul>
-    <button class="reservar-nav-btn" onclick="openBarberModal()">Reservar Turno</button>
     <button class="cart-btn" onclick="openCart()">
       <span>Carrito</span>
       <span class="cart-count" id="cartCount">0</span>
@@ -61,182 +59,73 @@
   <!-- HERO -->
   <section id="hero">
     <div class="hero-bg"></div>
-    <div class="hero-grid"></div>
     <div class="hero-content">
-      <img src="img/brand/logosinfondo.png" alt="Vatos Studio" class="hero-logo">
-      <div class="hero-tag">// Sarratea 141 — Boulogne Sur Mer</div>
+      <img src="img/brand/logosinfondo.png" alt="Vatos" class="hero-logo">
+      <div class="hero-tag">// Fragancias de autor</div>
       <h1>
-        VATOS<br>
-        <span class="h1-accent">STUDIO</span>
+        EL AROMA<br>
+        <span class="h1-accent">QUE TE DEFINE</span>
       </h1>
-      <p class="hero-sub">Barber Shop</p>
-      <button class="reservar-btn" onclick="openBarberModal()">
-        <span>📅</span>
-        Reservar turno
-      </button>
+      <p class="hero-sub">Perfumes &amp; Niche Fragrances</p>
+      <a href="#catalogo" class="reservar-btn">
+        <span>✦</span>
+        Ver Catálogo
+      </a>
     </div>
     <div class="hero-scroll">Scroll</div>
   </section>
 
-  <!-- LA CASA -->
-  <section id="local">
+  <!-- CATALOGO -->
+  <div class="category-bar" id="catalogo">
     <div class="section-header">
       <span class="section-num">01</span>
-      <h2 class="section-title">La Casa</h2>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="local-info">
-      <div class="local-info-item">
-        <span class="local-info-icon">📍</span>
-        <span>Sarratea 141 — Boulogne Sur Mer</span>
-      </div>
-      <div class="local-info-item">
-        <span class="local-info-icon">🕐</span>
-        <span>Lunes a Sábados: 10:00 — 20:00</span>
-      </div>
-    </div>
-
-    <div class="video-container">
-      <video autoplay muted loop playsinline preload="auto" poster="img/brand/logo.png">
-        <source src="img/local/local.mp4" type="video/mp4">
-        Tu navegador no soporta video.
-      </video>
-    </div>
-
-    <div class="gallery-grid">
-      <div class="gallery-item gallery-tall">
-        <img src="img/local/local-2.png" alt="Vatos Studio — local 2">
-      </div>
-      <div class="gallery-item">
-        <span>🧴</span>
-        <div class="gallery-label">// Foto 4</div>
-      </div>
-      <div class="gallery-item">
-        <span>🎧</span>
-        <div class="gallery-label">// Foto 5</div>
-      </div>
-      <div class="gallery-item gallery-main">
-        <img src="img/local/local-2.png" alt="Vatos Studio — local">
-      </div>
-    </div>
-  </section>
-
-  <!-- EL EQUIPO -->
-  <section id="equipo">
-    <div class="section-header">
-      <span class="section-num">02</span>
-      <h2 class="section-title">El Equipo</h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="equipo-list">
-      <div class="equipo-item">
-        <span class="equipo-nombre">Luca</span>
-        <button class="equipo-reservar" onclick="bookBarber('luca')">Reservar turno →</button>
-      </div>
-      <div class="equipo-item">
-        <span class="equipo-nombre">Leandro</span>
-        <button class="equipo-reservar" onclick="bookBarber('leandro')">Reservar turno →</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- CATEGORIAS -->
-  <div class="category-bar" id="categoria-bar">
-    <div class="section-header">
-      <span class="section-num">03</span>
       <h2 class="section-title">Catálogo</h2>
       <div class="section-line"></div>
     </div>
 
-    <div class="cat-tabs">
-      <button class="cat-tab" onclick="filterProducts('barber', this)">Barber</button>
-      <button class="cat-tab" onclick="filterProducts('fragancia', this)">Fragancia</button>
-      <button class="cat-tab" onclick="filterProducts('tecnologia', this)">Tecnología</button>
+    <div class="brand-banner active" id="brandBanner">
+      <div class="carousel">
+        <div class="carousel-track" id="carouselTrack">
+          <picture>
+            <source media="(max-width: 768px)" srcset="img/brand/banners/banner1app.png">
+            <img src="img/brand/banners/banner1web.png" alt="Vatos Fragancias">
+          </picture>
+          <picture>
+            <source media="(max-width: 768px)" srcset="img/brand/banners/banner2app.png">
+            <img src="img/brand/banners/banner2web.png" alt="Atomizadores 8ml">
+          </picture>
+        </div>
+        <div class="carousel-dots" id="carouselDots">
+          <span class="dot active" onclick="goToSlide(0)"></span>
+          <span class="dot" onclick="goToSlide(1)"></span>
+        </div>
+      </div>
     </div>
 
-    <!-- Sub-tabs de Barber (ocultos por defecto) -->
-    <div class="sub-tabs" id="subTabsBarber">
-      <button class="sub-tab" onclick="filterBrand('sirfausto', this)">Sir Fausto</button>
-    </div>
-
-    <!-- Banner de marca (oculto hasta seleccionar) -->
-    <div class="brand-banner" id="brandBanner"></div>
-
-    <!-- Banner tecnología -->
-    <div class="brand-banner" id="brandBannerTec"></div>
-
-    <!-- Barra WPP tecnología -->
-    <div class="tec-wpp-bar" id="tecWppBar">
-      <span class="tec-wpp-text">// No elijas a ciegas: te asesoramos para que lleves lo mejor al mejor precio.</span>
-      <button class="tec-wpp-btn" onclick="consultarTecnologia()">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-        </svg>
-        Consultar por WhatsApp
-      </button>
-    </div>
-
-    <!-- CATALOGO -->
-    <section id="catalogo">
+    <section id="productsSection">
       <div class="products-grid" id="productsGrid"></div>
     </section>
   </div>
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-logo">Vatos Studio</div>
-    <div class="footer-copy">© 2021 Vatos Studio — Todos los derechos reservados</div>
+    <div class="footer-logo">Vatos</div>
+    <div class="footer-copy">© 2025 Vatos — Fragancias. Todos los derechos reservados.</div>
   </footer>
-
-  <!-- MODAL ELEGIR BARBERO -->
-  <div class="overlay" id="barberOverlay" onclick="closeBarberModal()"></div>
-  <div class="barber-modal" id="barberModal">
-    <div class="barber-modal-header">
-      <h2>Elegí tu barbero</h2>
-      <button class="close-cart" onclick="closeBarberModal()">✕</button>
-    </div>
-    <div class="barber-modal-body">
-      <p class="barber-modal-tag">// Coordiná tu turno por WhatsApp</p>
-      <button class="barber-card" onclick="bookBarber('luca')">
-        <div class="barber-icon">💈</div>
-        <div class="barber-info">
-          <div class="barber-name">Luca</div>
-          <div class="barber-action">Coordinar turno →</div>
-        </div>
-      </button>
-      <button class="barber-card" onclick="bookBarber('leandro')">
-        <div class="barber-icon">💈</div>
-        <div class="barber-info">
-          <div class="barber-name">Leandro</div>
-          <div class="barber-action">Coordinar turno →</div>
-        </div>
-      </button>
-    </div>
-  </div>
 
   <!-- TOAST -->
   <div class="toast" id="toast"></div>
 
   <!-- BARRA NAVEGACIÓN MOBILE -->
   <nav class="bottom-nav">
-    <a href="#local" class="bottom-nav-item active" id="bn-lacasa">
+    <a href="#hero" class="bottom-nav-item active" id="bn-home">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
         <polyline points="9 22 9 12 15 12 15 22"/>
       </svg>
-      <span>La Casa</span>
+      <span>Inicio</span>
     </a>
-    <button class="bottom-nav-item" onclick="openBarberModal()" id="bn-turno">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-        <line x1="16" y1="2" x2="16" y2="6"/>
-        <line x1="8" y1="2" x2="8" y2="6"/>
-        <line x1="3" y1="10" x2="21" y2="10"/>
-      </svg>
-      <span>Turno</span>
-    </button>
-    <a href="#categoria-bar" class="bottom-nav-item" id="bn-catalogo">
+    <a href="#catalogo" class="bottom-nav-item" id="bn-catalogo">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
         <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
