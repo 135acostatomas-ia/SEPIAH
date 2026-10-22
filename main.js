@@ -247,51 +247,6 @@ function showToast(message) {
   showToast.timeout = window.setTimeout(() => toast.classList.remove("show"), 2600);
 }
 
-let carouselIndex = 0;
-let carouselInterval;
-
-function startCarousel() {
-  const track = document.getElementById("carouselTrack");
-  if (!track) return;
-  stopCarousel();
-  updateCarousel();
-  carouselInterval = window.setInterval(() => {
-    carouselIndex = (carouselIndex + 1) % 2;
-    updateCarousel();
-  }, 6000);
-}
-
-function stopCarousel() {
-  if (carouselInterval) window.clearInterval(carouselInterval);
-}
-
-function goToSlide(index) {
-  carouselIndex = index;
-  updateCarousel();
-  startCarousel();
-}
-
-function updateCarousel() {
-  const track = document.getElementById("carouselTrack");
-  if (!track) return;
-  track.style.transform = `translateX(-${carouselIndex * 100}%)`;
-  document.querySelectorAll(".dot").forEach((dot, index) => {
-    dot.classList.toggle("active", index === carouselIndex);
-  });
-}
-
-let touchStartX = 0;
-document.addEventListener("touchstart", event => {
-  if (document.getElementById("carouselTrack")) touchStartX = event.changedTouches[0].screenX;
-}, { passive: true });
-document.addEventListener("touchend", event => {
-  if (!document.getElementById("carouselTrack")) return;
-  const difference = touchStartX - event.changedTouches[0].screenX;
-  if (Math.abs(difference) < 50) return;
-  carouselIndex = difference > 0 ? Math.min(carouselIndex + 1, 1) : Math.max(carouselIndex - 1, 0);
-  updateCarousel();
-}, { passive: true });
-
 function openLightbox(src, alt) {
   const lightbox = document.createElement("div");
   lightbox.className = "lightbox";
@@ -378,5 +333,4 @@ document.querySelectorAll('input[name="deliveryMethod"]').forEach(input => {
 setupPageTransition();
 renderProducts();
 updateCartUI();
-startCarousel();
 refreshCursorTargets();
