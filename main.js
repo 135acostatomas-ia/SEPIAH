@@ -270,6 +270,14 @@ function closeLightbox() {
 function setupPageTransition() {
   const transition = document.getElementById("pageTransition");
   if (!transition) return;
+  const transitionLogo = transition.querySelector(".transition-logo");
+
+  // Ask the browser to decode the transition asset as soon as the page is ready.
+  // This avoids a blank overlay on slower mobile connections and Safari.
+  if (transitionLogo && typeof transitionLogo.decode === "function") {
+    transitionLogo.decode().catch(() => {});
+  }
+
   if (document.body.classList.contains("catalog-page")) {
     window.requestAnimationFrame(() => transition.classList.add("is-arriving"));
     window.setTimeout(() => transition.classList.add("is-complete"), 1400);
@@ -278,8 +286,20 @@ function setupPageTransition() {
     link.addEventListener("click", event => {
       if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
       event.preventDefault();
-      transition.classList.add("is-active");
-      window.setTimeout(() => { window.location.href = link.href; }, 1100);
+      let transitionStarted = false;
+      const startTransition = () => {
+        if (transitionStarted) return;
+        transitionStarted = true;
+        transition.classList.add("is-active");
+        window.setTimeout(() => { window.location.href = link.href; }, 1100);
+      };
+
+      if (transitionLogo && !transitionLogo.complete) {
+        transitionLogo.addEventListener("load", startTransition, { once: true });
+        window.setTimeout(startTransition, 300);
+      } else {
+        startTransition();
+      }
     });
   });
 }

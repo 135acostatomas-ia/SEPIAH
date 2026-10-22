@@ -1028,6 +1028,16 @@ footer {
 @keyframes logoDepart { to { opacity: 0; transform: scale(1.08); filter: blur(8px); } }
 @keyframes transitionOut { 70% { opacity: 1; } 100% { opacity: 0; } }
 
+@keyframes logoRevealMobile {
+  0% { opacity: 0; transform: translateZ(0) scale(0.88); }
+  55% { opacity: 1; transform: translateZ(0) scale(1.02); }
+  100% { opacity: 1; transform: translateZ(0) scale(1); }
+}
+
+@keyframes logoDepartMobile {
+  to { opacity: 0; transform: translateZ(0) scale(1.06); }
+}
+
 /* ── PÁGINA CATÁLOGO ─────────────────── */
 
 .catalog-main { padding-top: 66px; }
@@ -1186,11 +1196,40 @@ footer {
   .cursor, .cursor-ring { display: none; }
 }
 
+@media (max-width: 768px) {
+  .transition-logo {
+    width: min(210px, 52vw);
+    filter: none;
+    backface-visibility: hidden;
+    transform: translateZ(0) scale(0.88);
+    will-change: opacity, transform;
+  }
+  .page-transition.is-active .transition-logo {
+    animation: logoRevealMobile 0.9s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+  .catalog-page .page-transition .transition-logo {
+    transform: translateZ(0) scale(1);
+  }
+  .catalog-page .page-transition.is-arriving .transition-logo {
+    animation: logoDepartMobile 0.8s 0.1s ease forwards;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+  .page-transition.is-active .transition-logo {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  .catalog-page .page-transition.is-arriving {
+    animation-duration: 0.45s !important;
+    animation-delay: 0.35s !important;
   }
 }
