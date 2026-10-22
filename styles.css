@@ -1212,6 +1212,13 @@ footer {
 }
 
 @media (max-width: 768px) {
+  body {
+    background-image: url('img/brand/marble-bg-mobile.webp');
+    background-size: 100% auto;
+    background-position: center top;
+    background-attachment: scroll;
+    background-repeat: repeat-y;
+  }
   .page-transition {
     background:
       radial-gradient(circle at center, rgba(196,154,60,0.14), transparent 44%),
