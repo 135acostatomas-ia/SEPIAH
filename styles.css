@@ -956,8 +956,10 @@ footer {
   display: grid;
   place-items: center;
   background:
-    radial-gradient(circle at center, rgba(160,120,40,0.1), transparent 38%),
-    #050403;
+    radial-gradient(circle at center, rgba(196,154,60,0.16), transparent 42%),
+    rgba(12, 9, 5, 0.58);
+  -webkit-backdrop-filter: blur(8px) saturate(0.82);
+  backdrop-filter: blur(8px) saturate(0.82);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -1210,6 +1212,13 @@ footer {
 }
 
 @media (max-width: 768px) {
+  .page-transition {
+    background:
+      radial-gradient(circle at center, rgba(196,154,60,0.14), transparent 44%),
+      rgba(12, 9, 5, 0.52);
+    -webkit-backdrop-filter: blur(6px) saturate(0.86);
+    backdrop-filter: blur(6px) saturate(0.86);
+  }
   .transition-logo {
     width: min(210px, 52vw);
     height: auto;
