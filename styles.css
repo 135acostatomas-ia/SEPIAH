@@ -1268,3 +1268,30 @@ footer {
     animation-delay: 0.25s !important;
   }
 }
+
+/* Floating WhatsApp contact, above mobile navigation. */
+.whatsapp-float {
+  position: fixed;
+  right: max(22px, env(safe-area-inset-right));
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.22);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.whatsapp-float-icon { width: 30px; height: 30px; }
+.whatsapp-float:hover { background: #1fba58; transform: translateY(-3px); }
+.whatsapp-float:focus-visible { outline: 3px solid var(--gold-dark); outline-offset: 4px; }
+@media (max-width: 768px) {
+  .whatsapp-float {
+    right: max(16px, env(safe-area-inset-right));
+    bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+  }
+}
